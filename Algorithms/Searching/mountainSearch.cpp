@@ -4,24 +4,29 @@ using namespace std;
     int searchLarge(vector<int> &mountainArr,int start,int end){
         int mid = (start + end)/2;
         if(start>end) return -1;
-        if(mountainArr[mid]>mountainArr[mid+1] && mountainArr[mid]>mountainArr[mid-1]) return mid;
-        if(mountainArr[mid]<mountainArr[mid+1]) return searchLarge(mountainArr,mid+1,end);
+        int element = mountainArr[mid];
+        int element1 = mountainArr[mid+1];
+        int element2 = mountainArr[mid-1];
+        if(element>element1 && element>element2) return mid;
+        if(element<element1) return searchLarge(mountainArr,mid+1,end);
         else return searchLarge(mountainArr,start,mid-1);
     }
 
     int search(vector<int>& mountainArr,int start,int end,int& target){
         int mid = (start + end)/2;
         if(start>end) return -1;
-        if(mountainArr[mid]==target) return mid;
-        if(target<mountainArr[mid]) return search(mountainArr,start,mid-1,target);
+        int element = mountainArr[mid];
+        if(element==target) return mid;
+        if(target<element) return search(mountainArr,start,mid-1,target);
         else return search(mountainArr,mid+1,end,target);
     }
 
     int reverseSearch(vector<int>& mountainArr,int start,int end,int& target){
         int mid = (start + end)/2;
         if(start>end) return -1;
-        if(mountainArr[mid]==target) return mid;
-        if(target<mountainArr[mid]) return reverseSearch(mountainArr,mid+1,end,target);
+        int element = mountainArr[mid];
+        if(element==target) return mid;
+        if(target<element) return reverseSearch(mountainArr,mid+1,end,target);
         else return reverseSearch(mountainArr,start,mid-1,target);
     }
 
