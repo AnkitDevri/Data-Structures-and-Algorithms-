@@ -3,9 +3,9 @@ using namespace std;
 long long numberOfSubsequences(int N, long long A[]){
     int count = 0; 
     for(int i = 0 ; i < N; i++) {
-        if(A[i]&(A[i]-1) == 0) count++;
+        if((A[i]&(A[i]-1)) == 0) count++;
     }
-    return 1<<count -1;
+    return (1<<count)-1;
 }
 int main(){
     #ifndef ONLINE_JUDGE
