@@ -11,6 +11,10 @@ long calcBitAnd(long left,long right){
     return answer;
 }
 int main(){
+    #ifndef ONLINE_JUDGE
+    freopen("D:\\input.txt","r",stdin);
+    freopen("D:\\output.txt","w",stdout);
+    #endif
     long left,right;
     cin>>left>>right;
     cout<<calcBitAnd(left,right);
