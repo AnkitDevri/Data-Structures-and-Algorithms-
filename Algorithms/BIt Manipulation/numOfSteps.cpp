@@ -1,23 +1,31 @@
 using namespace std;
 #include<bits/stdc++.h>
 int numSteps(string s){
-    int count = 0;
-    auto g = s.find('1');
-    while(g!=string::npos){
-    if((s[s.size()-1]-'0')%2 ==0){
-        s=s+"1";
-    }
-    else{
-        s.replace(s.size()-1,1,"0");
-        int i = 2;
-        while(s[s.size()-i]=='1'){
-            s.replace(s.size()-i,1,"0");
-        }
-        s.replace(s.size()-i,1,"1");
-    }
-    count++;
-    }
-    return count;
+  int ans=0;
+       while(s.size()!=1)
+       {
+           if(s.back()=='0')
+           {
+                s.pop_back();
+                ans++;
+               continue;
+           }
+           bool flag=false;
+           for(int i=s.size()-1;i>=0;i--)
+           {
+               if(s[i]=='0')
+               {
+                   s[i]='1';
+                   flag=true;
+                   break;
+               }
+               s[i]='0';
+           }
+           if(!flag)
+              s="1"+s;
+           ans++;
+       }
+        return ans;
 }
 int main(){
     #ifndef ONLINE_JUDGE
