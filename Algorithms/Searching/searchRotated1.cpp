@@ -1,32 +1,23 @@
 using namespace std;
 #include <bits/stdc++.h>
-  int utility(vector<int>&nums,int left,int right,int target){
-        if(left>right) return -1;
-        int mid = (left+right)/2;
-        if(nums[mid]==target) return mid;
-        else if(target < nums[mid]) return utility(nums,left,mid-1,target);
-        else return utility(nums,mid+1,right,target);
-    }
+// here the intution is that we divide the search space while checking that the number is present before the pivot or after the pivot
+// it is first deteremined at which section we are
+// then we check if target is in the given section if it is then we narrow our search to that section if not then we move it away
     int search(vector<int>& nums, int target) {
-        int pivot = -1;
-        if(nums.size()==1){
-            if(nums[0]==target) return 0;
-            else return -1;
-        }
-        if(nums[0]>nums[1]) pivot = 1;
-        else if(nums[nums.size()-1]<nums[nums.size()-2]) pivot = nums.size()-1;
-        int l = 0, r = nums.size()-1;
-        while(l<=r && pivot==-1){
-            int m = (l+r)/2;
-            if(nums[m]<nums[m+1] && nums[m]<nums[m-1]) {
-                pivot=m;
-                break;
+        int left = 0, right = nums.size()-1;
+        while(left<=right){
+            int mid = (left+right)/2;
+            if(nums[mid]==target) return mid;
+            else if(nums[mid]>=nums[left]){
+                if(target>=nums[left] && target<nums[mid]) right = mid-1;
+                else left = mid+1;
             }
-            if(nums[m]>nums[0]) l=m+1;
-            else r=m-1;
+            else{
+                if(target<=nums[right] && target>nums[mid]) left = mid+1;
+                else right = mid-1;
+            }
         }
-        if(pivot==-1) return utility(nums,0,nums.size()-1,target);
-        else return(max(utility(nums,0,pivot-1,target),utility(nums,pivot,nums.size()-1,target)));
+        return -1;
     }
 int main(){
     #ifndef ONLINE_JUDGE

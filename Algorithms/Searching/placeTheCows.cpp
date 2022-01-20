@@ -25,7 +25,7 @@ int main(){
     
     int n,ele;
     int cows;
-    cin>>n>>cows;
+    cin>>n;
     vector<int> stalls(n,0);
     for(int i=0;i<stalls.size();i++){
         cin>>ele;
@@ -33,11 +33,18 @@ int main(){
     }
     int MIN,MAX;
     MIN=INT_MAX;
+    int t;
+    cin>>t;
+    vector<int> tc(t,0);
+    for(int i = 0; i < tc.size(); i++) cin>>tc[i];
+
+    for(int j = 0; j < tc.size(); j++){
     for(int i=1;i<stalls.size();i++)
      MIN=min(MIN,(stalls[i]-stalls[i-1]));
 
     MAX=stalls[stalls.size()-1]-stalls[0];
-    cout<<MAXplace(stalls,cows,MIN,MAX);
+    cout<<MAXplace(stalls,tc[j],MIN,MAX)<<endl;
+    }
     
     getchar();
     return 0;
