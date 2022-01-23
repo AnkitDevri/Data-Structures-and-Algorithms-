@@ -1,18 +1,29 @@
 using namespace std;
 #include<bits/stdc++.h>
-  int getTotalSubset(vector<int>& set,int& SUM,int sum,int index){
-      if(index<=set.size()){
-      if(sum==SUM)
-       return 1;
-       else if(sum>SUM)
-       return 0;
-      }
-      else
-       return 0;
-     
-    return getTotalSubset(set,SUM,sum+set[index],index)+getTotalSubset(set,SUM,sum,index+1);
-  }
+     void utl(vector<vector<int>>& ans,vector<int>& single,vector<int>& cand,int target,int idx){
+        if(target<0) return;
+        if(target==0){
+            ans.push_back(single);
+            return;
+        }
+        if(idx==cand.size()) return;
+        for(int i = idx; i < cand.size(); i++){
+            single.push_back(cand[i]);
+            utl(ans,single,cand,target-cand[i],i);
+            single.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> single;
+        utl(ans,single,candidates,target,0);
+        return ans;
+    }
 int main(){
+  #ifndef ONLINE_JUDGE
+    freopen("D:\\input.txt","r",stdin);
+    freopen("D:\\output.txt","w",stdout);
+    #endif
     int n,ele;
     vector<int> set;
     cin>>n;
@@ -22,7 +33,13 @@ int main(){
     }
     int sum;
     cin>>sum;
-    cout<<getTotalSubset(set,sum,0,0);
-    getchar();
+    vector<vector<int>> ans = combinationSum(set,sum);
+    
+    for(int i = 0; i < ans.size(); i++){
+      for(int j = 0; j < ans[i].size(); j++)
+        cout<<ans[i][j]<<" ";
+        cout<<endl;
+    }
+    
     return 0;
 }
