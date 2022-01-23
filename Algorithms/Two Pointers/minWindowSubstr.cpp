@@ -9,6 +9,5 @@ int main(){
     string s,t;
     cin>>s;
     cin>>t;
-    cout<<minWindow(s,t);
     return 0;
 }

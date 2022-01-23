@@ -1,17 +1,26 @@
 using namespace std;                                        // Triplet sum should be zero
 #include<bits/stdc++.h>
-  vector<vector<int>> threeSum(vector<int>& nums) {
+  vector<vector<int>> threeSum(vector<int>& nums){
+        if(nums.size()<=2) return{};
         vector<vector<int>> ans;
         sort(nums.begin(),nums.end());
         for(int i = 0; i < nums.size()-2; i++){
-            if(i>0 && nums[i]==nums[i-1]) continue;
+            if(i>0 && nums[i]==nums[i-1])i++;
             int target = -1*(nums[i]);
             int p1 = i+1;
             int p2 = nums.size()-1;
             while(p1<p2){
                 int sum = nums[p1]+nums[p2];
                 if(sum==target) {
-                    ans.push_back({nums[i],nums[p1],nums[p2]});
+                    vector<int> temp = {nums[i],nums[p1],nums[p2]};
+                    if(ans.size()>0){
+                        bool found = false;
+                        for(auto i : ans){
+                            if(i==temp) {found=true; break;}
+                        }
+                        if(!found) ans.push_back(temp);
+                    }
+                    else ans.push_back(temp);
                 }
                 if(sum<target) p1++;
                 else p2--;
