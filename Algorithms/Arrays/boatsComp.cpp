@@ -5,14 +5,11 @@ vector<int> calcTeams(vector<vector<int>>& tc){
     for(int i = 0 ; i < tc.size(); i++){
         int count = 0;
         int limit = tc[i][0];
-        int p1 = 1, p2 = limit;
+        int p1 = 1, p2 = limit*2;
+        int lastSum;
             while(p1<p2){
             int sum = tc[i][p1] + tc[i][p2];
-            if(sum>limit) p2--;
-            else {
-                p1++;
-                count++;
-            }
+            
         }
          ans.push_back(count);
     }
