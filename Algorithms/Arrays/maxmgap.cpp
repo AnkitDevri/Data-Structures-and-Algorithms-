@@ -1,6 +1,6 @@
 using namespace std;
 #include <bits/stdc++.h>
-int maximumGap(vector<int>& nums) {
+ int maximumGap(vector<int>& nums) {
         int ans = 0;
       //calculate size of buckets
         int gaps = nums.size()-1;
@@ -9,7 +9,7 @@ int maximumGap(vector<int>& nums) {
             MAX = max(MAX,i);
             MIN = min(MIN,i);
         }
-        if(MAX==MIN) return 0;
+        if(nums.size()<=2) return MAX-MIN;
         int bucketSize = ceil((float)(MAX-MIN)/gaps);
 
       //calculate max and min values of each bucket
@@ -30,7 +30,7 @@ int maximumGap(vector<int>& nums) {
             while(minVals[b2]==INT_MAX){
                b2++;
             }
-            while(b1>=b2 || maxVals[b1]==-1){
+            while(b1<b2 && maxVals[b1]==-1){
                b1++;
             }
             ans = max(ans,minVals[b2]-maxVals[b1]);
