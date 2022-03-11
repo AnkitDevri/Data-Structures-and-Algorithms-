@@ -10,7 +10,7 @@ int maximumGap(vector<int>& nums) {
             MIN = min(MIN,i);
         }
         if(MAX==MIN) return 0;
-        int bucketSize = ceil((MAX-MIN)/gaps);
+        int bucketSize = ceil((float)(MAX-MIN)/gaps);
 
       //calculate max and min values of each bucket
         vector<int> maxVals(nums.size(),-1);
@@ -21,20 +21,22 @@ int maximumGap(vector<int>& nums) {
             maxVals[idx] = max(maxVals[idx],nums[i]);
             minVals[idx] = min(minVals[idx],nums[i]);
         }
-        for(auto g : minVals) cout<<g<<" ";
-        for(auto f : maxVals) cout<<f<<" ";
+      //  for(auto g : minVals) cout<<g<<" ";
+      //  for(auto f : maxVals) cout<<f<<" ";
         
-      /*calculate max gap between two non empty buckets in the same arrangement
+      //calculate max gap between two non empty buckets in the same arrangement
         int b1=0,b2=1;
         while(b2<nums.size()){
             while(minVals[b2]==INT_MAX){
-                b1++;
+               b2++;
             }
-            while(b1>=b2 || maxVals[b1]==-1) b2++;
-            ans = max(ans,maxVals[b1]-minVals[b2]);
-            b1++;b2++;
+            while(b1>=b2 || maxVals[b1]==-1){
+               b1++;
+            }
+            ans = max(ans,minVals[b2]-maxVals[b1]);
+            b1++;
+            b2++;
         }
-        */
         
         return ans;
     }
