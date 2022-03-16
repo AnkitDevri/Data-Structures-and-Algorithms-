@@ -4,12 +4,12 @@ int countPairs(vector<int>arr,int k){
     int count=0;
     vector<int>counts(k,0);
     for(int i=0;i<arr.size();i++)
-        counts[arr[i]%k]++;
+        counts[(arr[i]%k +k)%k]++;
     for(int i=1;i<=k/2;i++){
-        if(i==k-i)
+        if(i==k-i)                            // in case when k is even and it reaches mid
         count=count+(counts[i]*(counts[i]-1))/2;
         
-        else
+        else                                  // when k is not at mids
         count=count+(counts[i]*counts[k-i]);
     }
         
