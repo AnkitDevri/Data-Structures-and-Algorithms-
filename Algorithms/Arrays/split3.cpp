@@ -18,25 +18,27 @@ long long countSplits(vector<int>& arr){
         if(psum[i]==target) psum[i]=1;
         else psum[i]=0;
     }
-    cout<<psum[0]<<" ";
+    //cout<<psum[0]<<" ";
     for(int i = 1; i<arr.size(); i++){
         psum[i] = psum[i-1] + psum[i];
-        cout<<psum[i]<<" ";
+     //   cout<<psum[i]<<" ";
     }
-    cout<<endl;
+    //cout<<endl;
     vector<long long> ssum(arr.size(),0);
     ssum[arr.size()-1] = arr[arr.size()-1];
     
-    cout<<ssum[ssum.size()-1]<<" ";
+    //cout<<ssum[ssum.size()-1]<<" ";
     for(int i = arr.size()-2; i>=0; i--){
         ssum[i] = arr[i] + ssum[i+1];
-        cout<<ssum[i]<<" ";
+     //   cout<<ssum[i]<<" ";
     }
-    cout<<endl;
+    //cout<<endl;
     long long count = 0;
     for(int i = ssum.size()-1;i>=1;i--){
         if(ssum[i]==target){
-            count+=psum[i-1];
+            if(i>=2 && psum[i-1]==psum[i-2])
+                count+=psum[i-1];
+            else if(psum[i-1]>0) count+=psum[i-1]-1;
         }
     }
     return count;
