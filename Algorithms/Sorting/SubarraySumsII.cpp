@@ -5,19 +5,52 @@ int merge(vector<int>& nums, int l, int r, int& k){
     int mid = l+r/2;
     vector<int> temp(r-l+1,0);
     int p1 = l,p2 = mid;
-    for(int i = l; i<=r; i++){
-        if(nums[p2]>=nums[p1]){
-            nums[i]=nums[p1];
+    while(p1<mid && p2<=r){
+        int val = nums[p2]-nums[p1];
+        if(val==k) {
+            count++;
             p1++;
-        }
-        else{
-            nums[i]=nums[p2];
             p2++;
         }
+        else if(val > k){
+            p1++;
+        }
+        else p2++;
+    }
+    
+    int idx = 0;
+    p1 = l,p2 = mid;
+    while(p1<mid && p2 <=r){
+        if(nums[p1]<=nums[p2]){
+            temp[idx] = nums[p1];
+            p1++;
+        }
+        else {
+            temp[idx] = nums[p2];
+            p2++;
+        }
+        idx++;
+    }
+    while(p1<mid){
+        temp[idx]= nums[p1];
+        p1++;
+        idx++;
+    }
+    while(p2<=r){
+        temp[idx]=nums[p2];
+        idx++;
+        p2++;
+    }
+
+    for(int i = l; i <=r; i++){
+        nums[i] = temp[i-l];
     }
     return count;
 }
 int divideAndConq(vector<int>& nums, int l, int r,int& k){
+    if(l<0 || r<0 || l>nums.size()-1 || r>nums.size()-1) 
+        return 0;
+        
     int mid = (l+r)/2;
     if(l>=r){
         if(nums[mid]==k)
