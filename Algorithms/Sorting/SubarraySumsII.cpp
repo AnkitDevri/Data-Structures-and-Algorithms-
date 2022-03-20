@@ -1,8 +1,8 @@
 using namespace std;
 #include <bits/stdc++.h>
-int merge(vector<int>& nums, int l, int r, int& k){
+int mergeCount(vector<int>& nums, int l, int r, int& k){
     int count = 0;
-    int mid = l+r/2;
+    int mid = l + (r-l)/2;
     vector<int> temp(r-l+1,0);
     int p1 = l,p2 = mid;
     while(p1<mid && p2<=r){
@@ -48,18 +48,16 @@ int merge(vector<int>& nums, int l, int r, int& k){
     return count;
 }
 int divideAndConq(vector<int>& nums, int l, int r,int& k){
-    if(l<0 || r<0 || l>nums.size()-1 || r>nums.size()-1) 
-        return 0;
-        
-    int mid = (l+r)/2;
-    if(l>=r){
+    int mid = l + (r-l)/2;
+    if(l>=r || l==mid){
         if(nums[mid]==k)
          return 1;
-        else return 0;
+        else 
+        return 0;
     }
     int leftCount = divideAndConq(nums,l,mid-1,k);
     int rightCount = divideAndConq(nums,mid,r,k);
-    return merge(nums,l,r,k) + leftCount + rightCount;
+    return mergeCount(nums,l,r,k) + leftCount + rightCount;
 }
 int main(){
     #ifndef ONLINE_JUDGE
@@ -76,6 +74,8 @@ int main(){
     for(int i = 1; i<nums.size(); i++) 
         nums[i]+=nums[i-1];
 
-    cout<<divideAndConq(nums,0,n-1,k);
+    cout<<divideAndConq(nums,0,n-1,k)<<endl;
+
+    for(auto i : nums) cout<<i<<" ";
     return 0;
 }
