@@ -4,8 +4,8 @@ int mergeCount(vector<int>& nums, int l, int r, int& k){
     int count = 0;
     int mid = l + (r-l)/2;
     vector<int> temp(r-l+1,0);
-    int p1 = l,p2 = mid;
-    while(p1<mid && p2<=r){
+    int p1 = l,p2 = mid+1;
+    while(p1<=mid && p2<=r){
         int val = nums[p2]-nums[p1];
         if(val==k) {
             count++;
@@ -19,8 +19,8 @@ int mergeCount(vector<int>& nums, int l, int r, int& k){
     }
     
     int idx = 0;
-    p1 = l,p2 = mid;
-    while(p1<mid && p2 <=r){
+    p1 = l,p2 = mid+1;
+    while(p1<=mid && p2<=r){
         if(nums[p1]<=nums[p2]){
             temp[idx] = nums[p1];
             p1++;
@@ -31,7 +31,7 @@ int mergeCount(vector<int>& nums, int l, int r, int& k){
         }
         idx++;
     }
-    while(p1<mid){
+    while(p1<=mid){
         temp[idx]= nums[p1];
         p1++;
         idx++;
@@ -49,14 +49,14 @@ int mergeCount(vector<int>& nums, int l, int r, int& k){
 }
 int divideAndConq(vector<int>& nums, int l, int r,int& k){
     int mid = l + (r-l)/2;
-    if(l>=r || l==mid){
+    if(l>=r){
         if(nums[mid]==k)
          return 1;
         else 
         return 0;
     }
-    int leftCount = divideAndConq(nums,l,mid-1,k);
-    int rightCount = divideAndConq(nums,mid,r,k);
+    int leftCount = divideAndConq(nums,l,mid,k);
+    int rightCount = divideAndConq(nums,mid+1,r,k);
     return mergeCount(nums,l,r,k) + leftCount + rightCount;
 }
 int main(){
@@ -76,6 +76,6 @@ int main(){
 
     cout<<divideAndConq(nums,0,n-1,k)<<endl;
 
-    for(auto i : nums) cout<<i<<" ";
+//   for(auto i : nums) cout<<i<<" ";
     return 0;
 }
