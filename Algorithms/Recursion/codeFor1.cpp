@@ -1,4 +1,4 @@
-using namespace std;
+/*using namespace std;
 #include <bits/stdc++.h>
 string compute(long long n){
    if(n==0) 
@@ -9,7 +9,7 @@ string compute(long long n){
    string num;
    num = compute(n/2);
    int mod = n%2;
-   
+
    string v;
    v+=num;
    v+=char(mod);
@@ -39,4 +39,63 @@ int main(){
     }
     cout<<count;
     return 0;
+}*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+
+
+long long int n, l, r;
+
+
+
+long long int c41(long long int n, long long int left, long long int right)
+
+{
+
+    if (left > r || right < l) return 0;
+
+    if (n < 2)
+
+    {
+
+        if (left >= l && right <= r) return n;
+
+        else return 0;
+
+    }
+
+    long long int mid = (left + right) / 2;
+
+    return c41(n / 2, left, mid - 1) + c41(n % 2, mid, mid) + c41(n / 2, mid + 1, right);
+
+}
+
+int main()
+
+{
+    #ifndef ONLINE_JUDGE
+
+    freopen("D:\\input.txt","r",stdin);
+
+    freopen("D:\\output.txt","w",stdout);
+
+    #endif
+
+    cin >> n >> l >> r;
+
+    long long int len = 1;
+
+    int x = log2(n);
+    
+    for(int i=0;i<x;i++){
+
+        len = len * 2 + 1;
+
+    }
+
+    cout << c41(n, 1, len) << endl;
+
 }
