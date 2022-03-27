@@ -8,19 +8,23 @@ using namespace std;
    for(int i=index;i<a.size();i++){
      // swap(a[index],a[i]);
      char temp=a[i];
-      for(int j=i;j>=index;j--)           // right rotating the string and changing the index
+      for(int j=i;j>index;j--)           // right rotating the string and changing the index
         a[j]=a[j-1];
       a[index]=temp;
       permutations(perms,a,index+1);
      // swap(a[index],a[i]);
         temp=a[index];
-      for(int j=index;j<=i;j++)          // backtracking by left rotatinng the sting and changing back the elements
+      for(int j=index;j<i;j++)          // backtracking by left rotatinng the sting and changing back the elements
         a[j]=a[j+1];
       a[i]=temp;
     
     }
  }
 int main(){
+  #ifndef ONLINE_JUDGE
+    freopen("D:\\input.txt","r",stdin);
+    freopen("D:\\output.txt","w",stdout);
+    #endif
     string a;
     cin>>a;
     vector<string> perms;

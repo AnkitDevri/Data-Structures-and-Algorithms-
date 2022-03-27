@@ -16,6 +16,10 @@ using namespace std;
    }
  }
 int main(){
+    #ifndef ONLINE_JUDGE
+    freopen("D:\\input.txt","r",stdin);
+    freopen("D:\\output.txt","w",stdout);
+    #endif
     string a;
     cin>>a;
     vector<string> perms;
